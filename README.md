@@ -1,1 +1,4 @@
-# LGA
+##### build the project
+
+    ./gradlew build
+    
