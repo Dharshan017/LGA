@@ -1,0 +1,27 @@
+name: Deploy to Tomcat
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build application
+      run: mvn clean install
+
+    - name: Install Tomcat
+      run: |
+          sudo apt-get update
+          sudo apt-get install -y tomcat8 tomcat8-admin
+    - name: Add Tomcat user
+      run: |
+        sudo bash -c 'echo "<role rolename=\"manager-gui\"/>" >> $CATALINA_HOME/conf/tomcat-users.xml'
+        sudo bash -c 'echo "<user username=\"admin\" password=\"admin\" roles=\"manager-gui\"/>" >> $CATALINA_HOME/conf/tomcat-users.xml'
+
