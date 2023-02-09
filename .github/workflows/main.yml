@@ -12,10 +12,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Build application
-      run: mvn clean install
-
+      
     - name: Install Tomcat
       run: |
           sudo apt-get update
